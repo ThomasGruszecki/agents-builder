@@ -446,15 +446,10 @@ IMPORTANT GUIDELINES:
 Your ultimate goal is to deliver production-quality solutions that meet all requirements with minimal guidance.
 """,
     tools=[
-        list_directory_tool,
-        print_working_directory_tool,
-        read_file_tool,
-        write_file_tool,
-        ask_clarifying_questions_tool,
-        search_files_tool,
-        grep_tool,
-        run_command_tool,
-        create_directory_tool,
+        planning_agent.as_tool(tool_name="planning_agent", tool_description="Creates detailed technical specifications and step-by-step plans"),
+        coding_agent.as_tool(tool_name="coding_agent", tool_description="Implements solutions following best practices and design patterns"),
+        testing_agent.as_tool(tool_name="testing_agent", tool_description="Verifies implementation quality and identifies issues"),
+        ask_clarifying_questions_tool
     ],
     model=MODEL_NAME
 )
