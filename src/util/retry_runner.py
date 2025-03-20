@@ -3,7 +3,10 @@ import random
 from typing import Callable
 from openai import APIError, RateLimitError
 from agents import Runner
-from .__init__ import MAX_RETRIES, RETRY_BASE_DELAY
+
+# Constants
+MAX_RETRIES = 3
+RETRY_BASE_DELAY = 6  # seconds
 
 async def retry_with_exponential_backoff(
     func: Callable,
