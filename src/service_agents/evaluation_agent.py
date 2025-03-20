@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import Literal
 from agents import Agent
-from util import prompt_with_agent_as_tool, ProgressTracker
+from util import prompt_with_agent_as_tool
+from hook import CustomAgentHooks
 
 prompt = """
 You are a senior software engineering manager who evaluates the quality of solutions.
@@ -30,11 +31,12 @@ Be decisive but fair in your assessment. Include detailed reasoning for your sco
 
 
 def getEvaluatorAgent(model_name: str = "gemini-2.0-flash-exp"):
-    return Agent[ProgressTracker](
+    return Agent(
         name="evaluator",
-        instructions=prompt_with_agent_as_tool(prompt),
+        instructions=prompt,
         output_type=EvaluationFeedback,
         model=model_name,
+        hooks=CustomAgentHooks("Evaluator"),
     )
 
 
