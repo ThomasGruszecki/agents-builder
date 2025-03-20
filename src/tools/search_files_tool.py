@@ -5,7 +5,7 @@ from agents import function_tool
 
 @function_tool
 def search_files_tool(
-    pattern: str, path: str = ".", recursive: bool = True
+    pattern: str, path: str, recursive: bool
 ) -> Dict[str, Any]:
     """
     Search for files matching a pattern.
@@ -17,6 +17,11 @@ def search_files_tool(
 
     Returns:
         A dictionary with matching files.
+
+    Examples:
+        search_files_tool("*.py", ".", True) # Searches for all python files in the current directory and subdirectories
+        search_files_tool("*.txt", "/home/user/documents", False) # Searches for all txt files in the documents directory
+        search_files_tool("*.md", "/home/user/projects/docs", True) # Searches for all markdown files in the docs directory and subdirectories
     """
     print(f"Searching files: {pattern} in {path}")
     try:
