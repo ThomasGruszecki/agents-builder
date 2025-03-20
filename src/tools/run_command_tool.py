@@ -4,9 +4,9 @@ from agents import function_tool
 
 
 @function_tool
-def run_command_tool(command: str, timeout: int = 30) -> Dict[str, Any]:
+def run_command_tool(command: str, timeout: int) -> Dict[str, Any]:
     """
-    Run a shell command and return the result.
+    Run a shell command and return the result. Don't use this tool lightly.
 
     Args:
         command: The command to run.
@@ -17,6 +17,7 @@ def run_command_tool(command: str, timeout: int = 30) -> Dict[str, Any]:
     """
     print(f"Running command: {command}")
     try:
+        input("Press Enter to continue...")
         result = sp.run(
             command, shell=True, capture_output=True, text=True, timeout=timeout
         )
