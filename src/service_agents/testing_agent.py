@@ -1,14 +1,15 @@
 from agents import Agent
 from tools import (
     list_directory_tool,
-    print_working_directory_tool,
     read_file_tool,
     grep_tool,
     run_command_tool,
     semantic_patch_file_tool,
-    edit_file_tool,
+    create_directory_tool,
+    create_file_tool
 )
-from util import prompt_with_agent_as_tool, ProgressTracker
+from util import prompt_with_agent_as_tool
+from hook import CustomAgentHooks
 
 prompt = """
 You are a senior software engineer who excels at testing and quality assurance.
@@ -32,21 +33,24 @@ Always provide clear, detailed reports of your findings, including:
 - How it was tested
 - Any issues discovered
 - Recommendations for fixes or improvements
+
+Use the create file tool exclusively to create unit tests.
+If needed, use uv to install dependencies.
 """
 
 
 def getTestingAgent(model_name: str = "gemini-2.0-flash-exp"):
-    return Agent[ProgressTracker](
+    return Agent(
         name="testing_agent",
         instructions=prompt_with_agent_as_tool(prompt),
         tools=[
             list_directory_tool,
-            print_working_directory_tool,
             read_file_tool,
             run_command_tool,
             grep_tool,
-            edit_file_tool,
-            semantic_patch_file_tool,
+            create_directory_tool,
+            create_file_tool
         ],
+        hooks=CustomAgentHooks("Testing"),
         model=model_name,
     )
