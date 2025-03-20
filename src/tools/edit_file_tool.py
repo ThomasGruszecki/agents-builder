@@ -1,11 +1,11 @@
-import os
-from typing import List, Dict, Any
+from typing import Any, List, Dict
 from agents import function_tool
-
 
 @function_tool
 def edit_file_tool(
-    path: str, operations: list[dict], read_before_edit: bool = True
+    path: str,
+    operations: List[Any],
+    read_before_edit: bool,
 ) -> str:
     """
     Edit a file with precision using operations instead of rewriting the entire file.
