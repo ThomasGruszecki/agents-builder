@@ -1,11 +1,12 @@
 from agents import Agent
 from tools import (
     list_directory_tool,
-    print_working_directory_tool,
     read_file_tool,
     search_files_tool,
 )
-from util import prompt_with_agent_as_tool, ProgressTracker
+from util import prompt_with_agent_as_tool
+from hook import CustomAgentHooks
+
 prompt = """
 You are a senior software engineer who excels at planning and designing software solutions.
     
@@ -30,14 +31,14 @@ If critical information is missing, note it but continue with reasonable assumpt
 
 # Agent definitions with improved instructions
 def getPlanningAgent(model_name: str = "gemini-2.0-flash-exp"):
-    return Agent[ProgressTracker](
+    return Agent(
         name="planning_agent",
         instructions=prompt_with_agent_as_tool(prompt),
         tools=[
             list_directory_tool,
-            print_working_directory_tool,
             read_file_tool,
             search_files_tool,
         ],
+        hooks=CustomAgentHooks("Planning"),
         model=model_name,
     )
