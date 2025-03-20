@@ -9,12 +9,14 @@ from .planning_agent import getPlanningAgent
 from .coding_agent import getCodingAgent
 from .testing_agent import getTestingAgent
 from .evaluation_agent import getEvaluatorAgent
+from .llm_context_management_agent import getLLMContextManagementAgent
 
 __all__ = [
     'getOrchestratorAgent',
     'getPlanningAgent',
     'getCodingAgent',
     'getTestingAgent',
-    'getEvaluatorAgent'
+    'getEvaluatorAgent',
+    'getLLMContextManagementAgent'
 ]
 
