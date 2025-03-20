@@ -5,6 +5,9 @@ def semantic_patch_file_tool(path: str, patch_operations: str) -> str:
     """
     Apply a semantic patch to a file using a unified diff-like format that's easier for LLMs to generate.
 
+    This tool allows for precise file modifications by specifying context lines to locate the change points,
+    followed by lines to remove and add. The format is inspired by unified diff but simplified for LLM use.
+
     Args:
         path: The file path to edit
         patch_operations: A string containing patch operations in the following format:
@@ -17,9 +20,27 @@ def semantic_patch_file_tool(path: str, patch_operations: str) -> str:
             - Second line to remove
             + Replacement line
             ```
-
+            
     Returns:
-        A message indicating success or error
+        A message indicating success or error. Success messages include confirmation of changes made,
+        while error messages provide details about what went wrong (file not found, context not matched, etc.)
+    
+    Examples:
+        semantic_patch_file_tool("src/main.py", '''
+            @@ def calculate_total(items): @@
+            - return sum(items)
+            + return sum(item.price for item in items)
+        ''')
+        
+        semantic_patch_file_tool("src/config.py", '''
+            @@ DEBUG = True @@
+            - DEBUG = True
+            + DEBUG = False
+            
+            @@ API_VERSION = "1.0" @@
+            - API_VERSION = "1.0"
+            + API_VERSION = "2.0"
+        ''')
     """
     print(f"Applying semantic patch to file: {path}")
 
