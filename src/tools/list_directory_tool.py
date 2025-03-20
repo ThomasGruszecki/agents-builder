@@ -4,7 +4,7 @@ from agents import function_tool
 
 
 @function_tool
-def list_directory_tool(path: str = ".") -> Dict[str, Any]:
+def list_directory_tool(path: str) -> Dict[str, Any]:
     """
     Return detailed information about files in the given directory.
 
@@ -13,6 +13,14 @@ def list_directory_tool(path: str = ".") -> Dict[str, Any]:
 
     Returns:
         A dictionary with files, directories, and any errors.
+
+    Examples:
+        list_directory_tool(".") # Lists the current directory
+
+        list_directory_tool("/home/user/projects") # Lists the projects directory from the home directory
+        
+        list_directory_tool("src/tools") # Lists the tools directory from the current directory
+    
     """
     print(f"Listing directory: {path}")
     try:
